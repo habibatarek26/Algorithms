@@ -1,10 +1,9 @@
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 
 public class Selection {
     public void get_median(int[] A) {
-        int median;
+        int median=0;
         int median_rand=0;
         long avg =0;
         long start_time;
@@ -25,17 +24,21 @@ public class Selection {
         System.out.println(avg);
 
 
-//        avg=0;
-//        for(int i=0; i<10; i++) {
-//            start_time = System.currentTimeMillis();
-//            median = select(A, 0, A.length - 1, A.length / 2);
-//            end_time = System.currentTimeMillis();
-//            avg+=(end_time-start_time);
-//        }
-//        avg/=10;
-//
-//        System.out.print("time elapsed by linear method in ms = ");
-//        System.out.println(avg);
+       avg=0;
+       for(int i=0; i<10; i++) {
+           start_time = System.currentTimeMillis();
+           median = select(A, 0, A.length - 1, A.length / 2);
+           end_time = System.currentTimeMillis();
+           avg+=(end_time-start_time);
+       }
+       avg/=10;
+       //print median of the array
+       System.out.print("Median = ");
+       System.out.println(median);
+
+
+       System.out.print("time elapsed by linear method in ms = ");
+       System.out.println(avg);
     }
 
     private int randomized_select(int[] A, int p, int r, int i) {
@@ -84,29 +87,23 @@ public class Selection {
     }
     private int select (int[]A, int p, int r,int i)
     {
-        while((r-p+1)%5!=0)
-        {
-            for (int j = p + 1; j <= r; j++)
-                if (A[p] > A[j])
-                    swap(A, p, j);
-            if (i == 1)
-                return A[p];
-            p = p + 1;
-            i = i - 1;
-        }
+        if(r==p)
+          return A[p];
+      
+         if(r-p+1<=5){
+            Arrays.sort(A,p,r);
+            return A[(p+r+1)/2];
+         }
+         int [] medians = new int[(int)((r-p+1)/5)];
+         for(int m=0; m<medians.length; m++)
+         {
+            int l=p+m*5;
+            int h=Math.min(l+4,r);
+            Arrays.sort(A,l,h+1);
+            medians[m]=A[(l+h)/2];
+         }
 
-        int g =(r-p+1)/5;
-        for(int j=p; j<=p+g-1; j++)
-        {
-            Arrays.sort(A,j,j+g-1);
-            Arrays.sort(A,j+g,j+2*g-1);
-            Arrays.sort(A,j+2*g, j+3*g-1);
-            Arrays.sort(A,j+3*g, j+4*g-1);
-            //Arrays.sort(A,j+4*g, j+5*g-1);
-        }
-        int x =select(A,p+2*g ,p+3*g-1 ,(int) Math.ceil(g/2));
-        int q=partition(A,p,r,x);
-        /////////////////////////////////////////
+        int q = partition(medians,0,medians.length,medians.length/2);
         int k=q-p+1;
         if(i==k)
             return A[q];
@@ -114,6 +111,8 @@ public class Selection {
             return select(A,p,q-1,i);
         else
             return select(A,q+1,r,i-k);
+        
     }
+
 
 }
