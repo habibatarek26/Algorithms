@@ -16,6 +16,6 @@ public class Main {
         s.get_median(randomArray);
         Arrays.sort(randomArray);
         System.out.print("median by sorting = ");
-         System.out.println(randomArray[5000000]);
+         System.out.println(randomArray[randomArray.length/2]);
     }
 }

@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -85,33 +86,33 @@ public class Selection {
         A[i] = A[j];
         A[j] = temp;
     }
-    private int select (int[]A, int p, int r,int i)
-    {
-        if(r==p)
-          return A[p];
-      
-         if(r-p+1<=5){
-            Arrays.sort(A,p,r);
-            return A[(p+r+1)/2];
-         }
-         int [] medians = new int[(int)((r-p+1)/5)];
-         for(int m=0; m<medians.length; m++)
-         {
-            int l=p+m*5;
-            int h=Math.min(l+4,r);
-            Arrays.sort(A,l,h+1);
-            medians[m]=A[(l+h)/2];
-         }
+    private  int select(int[] A, int p, int r, int i) {
+        if (r == p) {
+            return A[p];
+        }
 
-        int q = partition(medians,0,medians.length,medians.length/2);
-        int k=q-p+1;
-        if(i==k)
+        if (r - p + 1 <= 5) {
+            Arrays.sort(A, p, r + 1);
+            return A[(r - p + 1) / 2];
+        }
+
+        int g = (int) Math.ceil((double) (r - p + 1) / 5);
+        for(int j=0; j<g; j++)
+        {
+            Arrays.sort(A,p+g*j,Math.min(p+(j+1)*g,r));
+        }
+
+        int x = select(A, p+2*g, p+3*g-1,(int) Math.ceil(g/2));
+        int q = partition(A, p, r, x);
+
+        int k = q - p +1;
+        if (i == k) {
             return A[q];
-        else if (i<k)
-            return select(A,p,q-1,i);
-        else
-            return select(A,q+1,r,i-k);
-        
+        } else if (i < k) {
+            return select(A, p, q - 1, i);
+        } else {
+            return select(A, q + 1, r, i - k);
+        }
     }
 
 
