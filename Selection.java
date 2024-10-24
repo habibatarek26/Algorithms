@@ -1,6 +1,5 @@
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 public class Selection {
     public void get_median(int[] A) {
@@ -11,7 +10,7 @@ public class Selection {
         long end_time;
         for(int i=0; i<10; i++) {
              start_time = System.currentTimeMillis();
-            median_rand = randomized_select(A, 0, A.length - 1, A.length / 2);
+            median_rand = randomized_select(A.clone(), 0, A.length - 1, A.length / 2);
              end_time = System.currentTimeMillis();
              avg+=(end_time-start_time);
         }
@@ -28,7 +27,7 @@ public class Selection {
        avg=0;
        for(int i=0; i<10; i++) {
            start_time = System.currentTimeMillis();
-           median = select(A, 0, A.length - 1, A.length / 2);
+           median = select(A.clone());
            end_time = System.currentTimeMillis();
            avg+=(end_time-start_time);
        }
@@ -86,33 +85,25 @@ public class Selection {
         A[i] = A[j];
         A[j] = temp;
     }
-    private  int select(int[] A, int p, int r, int i) {
-        if (r == p) {
-            return A[p];
+    private int select(int[] A) {
+        if (A.length <= 5) {
+            Arrays.sort(A);
+            return A[A.length / 2];
         }
 
-        if (r - p + 1 <= 5) {
-            Arrays.sort(A, p, r + 1);
-            return A[(r - p + 1) / 2];
+        int g = (int) Math.ceil((double) A.length / 5);
+        int[] medians = new int[g];
+
+        for (int j = 0; j < g; j++) {
+            int s = j * 5;
+            int e = Math.min(s + 4, A.length - 1);
+
+            Arrays.sort(A, s, e + 1);
+
+            medians[j] = A[((s + e) / 2)];
         }
 
-        int g = (int) Math.ceil((double) (r - p + 1) / 5);
-        for(int j=0; j<g; j++)
-        {
-            Arrays.sort(A,p+g*j,Math.min(p+(j+1)*g,r));
-        }
-
-        int x = select(A, p+2*g, p+3*g-1,(int) Math.ceil(g/2));
-        int q = partition(A, p, r, x);
-
-        int k = q - p +1;
-        if (i == k) {
-            return A[q];
-        } else if (i < k) {
-            return select(A, p, q - 1, i);
-        } else {
-            return select(A, q + 1, r, i - k);
-        }
+        return select(medians);
     }
 
 
