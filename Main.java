@@ -10,7 +10,7 @@ public class Main {
             int[] randomArray = new int[size];
             Random random = new Random();
 
-            for (int j = 0; j < size; j++) 
+            for (int j = 0; j < size; j++)
                 randomArray[j] = random.nextInt();
 
             Selection s = new Selection();
