@@ -1,10 +1,8 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Reader {
+public class IOReaderWriter {
     public static List<List<int[]>> readTestCases(String fileName) throws IOException {
         List<List<int[]>> testCases = new ArrayList<>();
 
@@ -28,4 +26,14 @@ public class Reader {
         }
         return testCases;
     }
+    public static void writeLinesToFile(String fileName, int output) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+                writer.write(output);
+                writer.newLine();
+            System.out.println("File written successfully.");
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
 }
