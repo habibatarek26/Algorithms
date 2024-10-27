@@ -48,9 +48,10 @@ float get_Square_Side(List<int[]>X)
 
     private float getDistance(int[] firstP, int[]secondP)
 {
-    return (float) Math.sqrt(
+    float d= (float) Math.sqrt(
             Math.pow((firstP[0]-secondP[0]),2)
           + Math.pow((firstP[1]-secondP[1]),2)
                           );
+    return (float)Math.min(d,Math.max(Math.abs(firstP[0]-secondP[0]),Math.abs(firstP[1]-secondP[1])));
 }
 }
