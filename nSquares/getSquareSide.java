@@ -11,10 +11,10 @@ float get_Square_Side(List<int[]>X)
     {
         if(size <= 1) return 0;
         if(size ==2)
-            return getDistance(X.get(0),X.get(1));
-        float d = Math.min(getDistance(X.get(0),X.get(1))
-                        , getDistance(X.get(0),X.get(2)));
-        d= Math.min(d, getDistance(X.get(1),X.get(2)));
+            return get_square_side(X.get(0),X.get(1));
+        float d = Math.min(get_square_side(X.get(0),X.get(1))
+                        , get_square_side(X.get(0),X.get(2)));
+        d= Math.min(d, get_square_side(X.get(1),X.get(2)));
         return d;
     }
     float l=get_Square_Side(X.subList(0,X.size()/2));
@@ -40,18 +40,18 @@ float get_Square_Side(List<int[]>X)
                 if ((Y.get(j)[1] - Y.get(i)[1]) >= delta) {
                     break;
                 }
-                delta = Math.min(delta, getDistance(Y.get(i), Y.get(j)));
+                delta = Math.min(delta, get_square_side(Y.get(i), Y.get(j)));
             }
         }
         return delta;
     }
 
-    private float getDistance(int[] firstP, int[]secondP)
+    private float get_square_side(int[] firstP, int[]secondP)
 {
     float d= (float) Math.sqrt(
             Math.pow((firstP[0]-secondP[0]),2)
           + Math.pow((firstP[1]-secondP[1]),2)
                           );
-    return (float)Math.min(d,Math.max(Math.abs(firstP[0]-secondP[0]),Math.abs(firstP[1]-secondP[1])));
+    return  (float)Math.min(d,Math.max(Math.abs(firstP[0]-secondP[0]),Math.abs(firstP[1]-secondP[1])));
 }
 }
