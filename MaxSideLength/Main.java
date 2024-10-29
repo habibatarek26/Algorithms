@@ -5,14 +5,13 @@ import java.util.stream.Collectors;
 public class Main {
     public static void main(String []arg) throws IOException {
         Scanner s = new Scanner(System.in);
-        String file = "test.txt";
         IOReaderWriter rw = new IOReaderWriter();
-        List<List<long[]>> cases = rw.readTestCases(file);
+        List<List<long[]>> cases = rw.readTestCases(arg[0]);
         for (int i = 0; i < cases.size(); i++) {
             List<long[]>x=deepCopy(cases.get(i));
             Collections.sort(x, Comparator.comparing(point -> point[0]));
             long MaxSquareSide =(long) new MaxSideLength().get_Square_Side(x);
-            rw.writeLinesToFile(file.replace("test","output"),MaxSquareSide);
+            rw.writeLinesToFile(arg[0].replace("test","output"),MaxSquareSide);
             System.out.println((long)MaxSquareSide);
         }
     }

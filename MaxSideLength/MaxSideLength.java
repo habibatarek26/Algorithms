@@ -9,7 +9,7 @@ long get_Square_Side(List<long[]>X)
     long size =X.size();
     if(size<=3)
     {
-        if(size <= 1) return 0;
+        if(size == 1) return Long.MAX_VALUE;
         if(size ==2)
             return get_square_side(X.get(0),X.get(1));
         long d = Math.min(get_square_side(X.get(0),X.get(1))
@@ -34,7 +34,6 @@ long get_Square_Side(List<long[]>X)
 }
 
     private long dOfPointsAcrossTheMid(List<long[]> Y, long delta) {
-
         for (int i = 0; i < Y.size(); i++) {
             for (int j = i + 1; j < Y.size()&&(j-i)<7 ; j++) {
                 if ((Y.get(j)[1] - Y.get(i)[1]) >= delta) {
@@ -46,8 +45,7 @@ long get_Square_Side(List<long[]>X)
         return delta;
     }
 
-    private long get_square_side(long[] firstP, long[]secondP)
-{
-    return  (long)Math.max(Math.abs(firstP[0]-secondP[0]),Math.abs(firstP[1]-secondP[1]));
-}
+    private long get_square_side(long[] firstP, long[]secondP) {
+        return  (long)Math.max(Math.abs(firstP[0]-secondP[0]),Math.abs(firstP[1]-secondP[1]));
+    }
 }
