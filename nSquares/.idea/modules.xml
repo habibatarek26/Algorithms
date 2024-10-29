@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/SquareSide.iml" filepath="$PROJECT_DIR$/.idea/SquareSide.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/MaxSideLength.iml" filepath="$PROJECT_DIR$/.idea/MaxSideLength.iml" />
     </modules>
   </component>
 </project>
