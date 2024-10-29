@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class getSquareSide {
+public class MaxSideLength {
 long get_Square_Side(List<long[]>X)
 {
     long size =X.size();

@@ -11,7 +11,7 @@ public class Main {
         for (int i = 0; i < cases.size(); i++) {
             List<long[]>x=deepCopy(cases.get(i));
             Collections.sort(x, Comparator.comparing(point -> point[0]));
-            long MaxSquareSide =(long) new getSquareSide().get_Square_Side(x);
+            long MaxSquareSide =(long) new MaxSideLength().get_Square_Side(x);
             rw.writeLinesToFile(file.replace("test","output"),MaxSquareSide);
             System.out.println((long)MaxSquareSide);
         }
