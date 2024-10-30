@@ -6,7 +6,7 @@ public class Main {
     {
         long [][]res = new long[3][2];
         long[] avg = new long[3];
-        for (float i=1; i<=7; i+=1) {
+        for (float i=1; i<=7; i+=0.5) {
          //   int avg=0;
             int size =(int) Math.pow(10,i);
             for(int k=0; k<20; k++)
