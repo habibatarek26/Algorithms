@@ -2,58 +2,36 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 public class Selection {
-    public void get_median(int[] A) {
+    public long[][] get_median(int[] A) {
         int median=0;
         int median_rand=0;
         long avg =0;
         long start_time;
         long end_time;
-        for(int i=0; i<10; i++) {
-             start_time = System.nanoTime();
-            median_rand = randomized_select(A.clone(), 0, A.length - 1, A.length / 2);
-             end_time = System.nanoTime();
-             avg+=(end_time-start_time);
-        }
-        avg/=10;
-        //print median of the array
-        System.out.print("RANDOM PIVOT\nMedian = ");
-        System.out.println(median_rand);
+        long [][] timeAndMed = new long[3][2];
 
-        //time elapsed by the randomized algorithm
-        System.out.print("Average Time elapsed in ns = ");
-        System.out.println(avg);
+         start_time = System.nanoTime();
+         median_rand = randomized_select(A.clone(), 0, A.length - 1, A.length / 2);
+         end_time = System.nanoTime();
+         timeAndMed[0][0]=end_time-start_time;
+         timeAndMed[0][1]=median_rand;
 
-
-       avg=0;
-       for(int i=0; i<10; i++) {
-           start_time = System.nanoTime();
-           median = select(A.clone(),0,A.length-1,A.length/2);
-           end_time = System.nanoTime();
-           avg+=(end_time-start_time);
-       }
-       avg/=10;
-       //print median of the array
-       System.out.print("\nMEDIAN OF MEDIANDS\nMedian = ");
-       System.out.println(median);
+       start_time = System.nanoTime();
+       median = select(A.clone(),0,A.length-1,A.length/2);
+       end_time = System.nanoTime();
+        timeAndMed[1][0]=end_time-start_time;
+        timeAndMed[1][1]=median;
 
 
-       System.out.print("Average Time elapsed in ns = ");
-       System.out.println(avg);
+
 
         start_time = System.nanoTime();
+        Arrays.sort(A);
         end_time = System.nanoTime();
+        timeAndMed[2][0]=end_time-start_time;
+        timeAndMed[2][1]=A[A.length/2];
 
-        for(int i=0; i<10; i++) {
-            start_time = System.nanoTime();
-            Arrays.sort(A);
-            end_time = System.nanoTime();
-            avg+=(end_time-start_time);
-        }
-        avg/=10;
-        System.out.print("\nSORTING\nMedian = ");
-        System.out.println(A[A.length/2]);
-        System.out.print("Average Time elapsed in ns = ");
-        System.out.println(end_time-start_time);
+        return timeAndMed;
     }
 
     private int randomized_select(int[] A, int p, int r, int i) {
@@ -106,29 +84,29 @@ public class Selection {
         A[i] = A[j];
         A[j] = temp;
     }
-    private int select(int[] A,int p,int r,int i) {
-        if (p==r) {
-            return A[p];
+    private int select(int[] A, int p, int r, int i) {
+        if (r - p < 5) {
+            Arrays.sort(A, p, r + 1);
+            return A[p + i];
         }
-        int g = (int) Math.ceil((double) (r-p+1) / 5);
+
+        int g = (int) Math.ceil((double) (r - p + 1) / 5);
         int[] medians = new int[g];
 
         for (int j = 0; j < g; j++) {
-            int s = p+j * 5;
-            int e = Math.min(s + 4, r);
-
-            Arrays.sort(A, s, e + 1);
-
-            medians[j] = A[s + (e - s) / 2];
+            int start = p + j * 5;
+            int end = Math.min(start + 4, r);
+            Arrays.sort(A, start, end + 1);
+            medians[j] = A[start + (end - start) / 2];
         }
-        int x= select(medians, 0, medians.length - 1, medians.length / 2);
-        int q= partition(A,p,r,x);
-        int k=q-p;
-        if(i==k) return A[q];
-        else if(i<k) return select(A,p,q-1,i);
-        else return select(A,q+1,r,i-k-1);
 
+        int x = select(medians, 0, medians.length - 1, medians.length / 2);
+        int q = partition(A, p, r, x);
+        int k = q - p;
+
+        if (i == k) return A[q];
+        else if (i < k) return select(A, p, q - 1, i);
+        else return select(A, q + 1, r, i - k - 1);
     }
-
 
 }
