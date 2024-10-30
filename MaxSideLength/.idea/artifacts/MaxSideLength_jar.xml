@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="MaxSideLength:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MaxSideLength_jar</output-path>
+    <root id="archive" name="MaxSideLength.jar">
+      <element id="module-output" name="MaxSideLength" />
+    </root>
+  </artifact>
+</component>
