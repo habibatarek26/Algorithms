@@ -1,5 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Scanner;
 
 public class WeightedActivitySelection {
 
@@ -32,14 +35,14 @@ public class WeightedActivitySelection {
         int startOfJob = activities[indexOfJob][0];
         while(start<=end)
         {
-          mid = (start+end)/2;
-          if(activities[mid][1]<= startOfJob) {
-              if (mid == indexOfJob - 1 || activities[mid + 1][1] > startOfJob)
-                  return mid;
-              start = mid + 1;
-          }
-        else if(activities[mid][1]> startOfJob)
-              end=mid-1;
+            mid = (start+end)/2;
+            if(activities[mid][1]<= startOfJob) {
+                if (mid == indexOfJob - 1 || activities[mid + 1][1] > startOfJob)
+                    return mid;
+                start = mid + 1;
+            }
+            else if(activities[mid][1]> startOfJob)
+                end=mid-1;
         }
         return -1;
     }
