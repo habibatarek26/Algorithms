@@ -9,11 +9,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-//         filePath = "C:\\Users\\matrix\\Desktop\\ennnnv.txt";  // Replace with your file path
-//        nBytes = 2;
-        HuffmanCode h =new HuffmanCode();
-        h.readNbyNBytes("C:/Users/matrix/Downloads/Assignment 2.pdf",10);
-        h.printState();
-       System.out.println(h.getMinKey());
+        HuffmanCode huffman = new HuffmanCode();
+        huffman.readNbyNBytes("C:/Users/matrix/Downloads/Assignment 2.pdf", 100);  // Example of reading one byte at a time
+        huffman.buildTree();
     }
 }
+
