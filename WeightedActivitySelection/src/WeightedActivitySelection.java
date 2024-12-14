@@ -1,14 +1,38 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
 
 public class WeightedActivitySelection {
+    public static int[][] readActivitiesFromFile(String filename) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File(filename));
+        int n = scanner.nextInt(); // Number of activities
+        int[][] activities = new int[n][3];
 
-    //activity [0] start time
-    //activity [1] end time
-    //activity[2] weight of activity
+        for (int i = 0; i < n; i++) {
+            activities[i][0] = scanner.nextInt(); // Start time
+            activities[i][1] = scanner.nextInt(); // End time
+            activities[i][2] = scanner.nextInt(); // Weight
+        }
+        scanner.close();
+        return activities;
+    }
+    public static void writeOutputToFile(String inputFilePath, String output, String id) throws IOException {
+        File inputFile = new File(inputFilePath);
+        File parentDirectory = inputFile.getParentFile();
+        String inputFileName = inputFile.getName();
+
+        String baseName = inputFileName.contains(".")
+                ? inputFileName.split("\\.")[0]
+                : inputFileName;
+
+        String outputFileName = baseName + "_" + id + ".out"+".txt";
+        File outputFile = new File(parentDirectory, outputFileName);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+            writer.write(output);
+        }
+    }
     public int  selectActivities(int[][] activities)
     {
         sortActivities(activities);
