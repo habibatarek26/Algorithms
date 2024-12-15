@@ -32,16 +32,17 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-
+//
 //        HuffmanCode huffman = new HuffmanCode();
 //        huffman.readNbyNBytes("C:/Users/matrix/Desktop/Assign1Net/progassign.pdf", 3);  // Example of reading one byte at a time
 //        System.out.println("finish reading");
 //        huffman.buildTree();
 //        System.out.println("tree has been built");
-//
-//        huffman.compressFile("C:/Users/matrix/Desktop/Assign1Net/progassign.pdf", getOutputFileName("C:/Users/matrix/Desktop/Assign1Net/progassign.pdf",""),3);
+//        FileCompressor fileCompressor =new FileCompressor(huffman.code ,huffman.dCode);
+//        fileCompressor.compressFile("C:/Users/matrix/Desktop/Assign1Net/progassign.pdf", getOutputFileName("C:/Users/matrix/Desktop/Assign1Net/progassign.pdf",""),3);
 //        System.out.println("finish compressing");
-//        huffman.decompressFile(getOutputFileName("C:/Users/matrix/Desktop/Assign1Net/progassign.pdf",""),getOutputFileName("C:/Users/matrix/Desktop/Assign1Net/progassign.pdf","d") ,3);
+//        FileDecompressor fileDecompressor=new FileDecompressor();
+//        fileDecompressor.decompressFile(getOutputFileName("C:/Users/matrix/Desktop/Assign1Net/progassign.pdf",""),getOutputFileName("C:/Users/matrix/Desktop/Assign1Net/progassign.pdf","d") ,3);
 
 //        HuffmanCode huffman = new HuffmanCode();
 //        huffman.readNbyNBytes("C:/Users/matrix/Desktop/ennnnv.txt", 2);  // Example of reading one byte at a time
@@ -52,21 +53,38 @@ public class Main {
       //  huffman.decompressFile("C:/Users/matrix/Desktop/outy.txt","C:/Users/matrix/Desktop/outyd.txt",2 );
         HuffmanCode huffman = new HuffmanCode();
         LocalTime start = LocalTime.now();
-        LocalTime start1 = LocalTime.now();
-        huffman.readNbyNBytes("C:\\Users\\matrix\\Downloads\\gbbct10.seq", 3);  // Example of reading one byte at a time
+        huffman.readNbyNBytes("C:\\Users\\matrix\\Downloads\\gbbct10.seq", 1);  // Example of reading one byte at a time
         huffman.buildTree();
         LocalTime end1 = LocalTime.now();
-        System.out.println("tree wn 2raya = "+(Duration.between(start1,end1)));
-        huffman.compressFile("C:\\Users\\matrix\\Downloads\\gbbct10.seq", "C:\\Users\\matrix\\Downloads\\gbbct10.seq.hc",3);
+        System.out.println("tree wn 2raya = "+(Duration.between(start,end1)));
+        FileCompressor fileCompressor =new FileCompressor(huffman.code ,huffman.dCode);
+        FileDecompressor fileDecompressor = new FileDecompressor();
+        fileCompressor.compressFile("C:\\Users\\matrix\\Downloads\\gbbct10.seq", "C:\\Users\\matrix\\Downloads\\gbbct10.seq.hc",1);
         LocalTime end = LocalTime.now();
         System.out.println("compress "+(Duration.between(start,end)));
          start = LocalTime.now();
-        huffman.decompressFile("C:\\Users\\matrix\\Downloads\\gbbct10.seq.hc","C:\\Users\\matrix\\Downloads\\extracted.gbbct10.seq" ,3);
+        fileDecompressor.decompressFile("C:\\Users\\matrix\\Downloads\\gbbct10.seq.hc","C:\\Users\\matrix\\Downloads\\extracted.gbbct10.seq" ,1);
          end = LocalTime.now();
         System.out.println("decompress "+(Duration.between(start,end)));
 
-    }
-}
+
+
+
+//        if(args[2].equals("d"))
+//        {
+//            FileDecompressor fileDecompressor = new FileDecompressor();
+//            fileDecompressor.decompressFile(args[0],getOutputFileName(args[0],"d") ,Integer.parseInt(args[1]));
+//
+//        }
+//        else {
+//            HuffmanCode huffmanCode =new HuffmanCode();
+//            huffmanCode.readNbyNBytes(args[0],Integer.parseInt(args[1]));
+//            huffmanCode.buildTree();
+//            FileCompressor fileCompressor =new FileCompressor(huffman.code ,huffman.dCode);
+//            fileCompressor.compressFile(args[0], getOutputFileName(args[0],""),Integer.parseInt(args[1]));
+//        }
+//    }
+}}
 //certutil -hashfile "C:\Users\matrix\Downloads\gbbct10.seq" SHA256
 //certutil -hashfile "C:\Users\matrix\Downloads\extracted.gbbct10.seq" SHA256
 //certutil -hashfile "C:/Users/matrix/Desktop/Assign1Net/progassign.pdf" SHA256
